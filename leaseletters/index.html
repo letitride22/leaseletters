@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LeaseLetters — AI Landlord Document Generator</title>
+  <meta name="description" content="Generate professional landlord letters and notices in seconds. Late rent, move-out, rent increase, lease violations and more. Free, no account needed." />
+  <meta name="keywords" content="landlord letter generator, late rent notice, rent increase letter, move out letter, lease violation notice, landlord document generator" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Karla:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #1E1C19;
+      --bg2:       #252320;
+      --bg3:       #2D2A26;
+      --ink:       #F0EBE2;
+      --ink2:      #B8AFA4;
+      --ink3:      #6E655C;
+      --accent:    #5DB87A;
+      --accent2:   #4DA468;
+      --accentbg:  rgba(93,184,122,0.12);
+      --border:    rgba(240,235,226,0.08);
+      --border2:   rgba(240,235,226,0.15);
+      --radius:    10px;
+      --radiuslg:  16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Karla', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.055;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+    }
+
+    /* ── HERO WRAP with geo background ── */
+    .hero-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-geo {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(30,28,25,0.92);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 34px; height: 34px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .logo-icon svg { width: 18px; height: 18px; }
+
+    .logo-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.3px;
+    }
+
+    .logo-name span { color: var(--accent); }
+
+    .nav-badge {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accentbg);
+      border: 1px solid rgba(93,184,122,0.25);
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3.5rem 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .hero-kicker {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 6vw, 58px);
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--ink2);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--ink3);
+      font-weight: 400;
+    }
+
+    .trust-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── DOC PICKER ── */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2.5rem 2rem;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 1rem;
+    }
+
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 8px;
+      margin-bottom: 2rem;
+    }
+
+    .doc-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+      text-align: left;
+    }
+
+    .doc-card:hover {
+      border-color: var(--border2);
+      background: var(--bg3);
+      transform: translateY(-1px);
+    }
+
+    .doc-card.active {
+      border-color: var(--accent);
+      background: var(--accentbg);
+    }
+
+    .doc-card-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      background: var(--accentbg);
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-bottom: 7px;
+    }
+
+    .doc-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+
+    .doc-card-desc {
+      font-size: 11px;
+      color: var(--ink3);
+      line-height: 1.4;
+    }
+
+    /* ── FORM PANEL ── */
+    .form-panel {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radiuslg);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-header {
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-header-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .form-header-sub {
+      font-size: 11px;
+      color: var(--ink3);
+      margin-top: 1px;
+    }
+
+    .form-body {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field.full { grid-column: 1 / -1; }
+
+    .field label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--ink2);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      font-family: 'Karla', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 9px 12px;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      width: 100%;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(93,184,122,0.15);
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder { color: var(--ink3); }
+
+    .field select { appearance: none; cursor: pointer; }
+
+    .field textarea { resize: vertical; min-height: 78px; line-height: 1.5; }
+
+    /* ── STATE GRID ── */
+    .state-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .state-pill {
+      font-family: 'Karla', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 9px;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--ink2);
+      transition: all 0.12s;
+    }
+
+    .state-pill:hover { border-color: var(--accent2); color: var(--accent); }
+
+    .state-pill.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── GENERATE BAR ── */
+    .gen-bar {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .gen-btn {
+      flex: 1;
+      font-family: 'Karla', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 12px 24px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      letter-spacing: 0.2px;
+    }
+
+    .gen-btn:hover { background: var(--accent2); }
+    .gen-btn:active { transform: scale(0.99); }
+    .gen-btn:disabled { background: var(--bg3); color: var(--ink3); cursor: not-allowed; }
+
+    .gen-note {
+      font-size: 11px;
+      color: var(--ink3);
+      line-height: 1.4;
+      max-width: 200px;
+    }
+
+    /* ── OUTPUT ── */
+    .output-panel {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radiuslg);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .output-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .output-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .output-actions { display: flex; gap: 8px; }
+
+    .out-btn {
+      font-family: 'Karla', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 14px;
+      background: transparent;
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--ink2);
+      transition: all 0.12s;
+    }
+
+    .out-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accentbg); }
+
+    .output-body {
+      padding: 1.75rem;
+      font-size: 14px;
+      line-height: 1.85;
+      color: var(--ink);
+      white-space: pre-wrap;
+      min-height: 180px;
+      font-family: 'Karla', sans-serif;
+      font-weight: 300;
+    }
+
+    .output-placeholder {
+      color: var(--ink3);
+      font-style: italic;
+    }
+
+    /* ── UPSELL ── */
+    .upsell {
+      background: var(--bg2);
+      border: 1px solid rgba(93,184,122,0.3);
+      border-radius: var(--radiuslg);
+      padding: 1.4rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .upsell-text strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 3px;
+      letter-spacing: -0.2px;
+    }
+
+    .upsell-text span {
+      font-size: 12px;
+      color: var(--ink2);
+      font-weight: 300;
+    }
+
+    .upsell-cta {
+      font-family: 'Karla', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 22px;
+      background: var(--accent);
+      color: #0f1a12;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+
+    .upsell-cta:hover { background: var(--accent2); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: var(--ink3);
+      max-width: 420px;
+      line-height: 1.5;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+      color: var(--ink3);
+      text-decoration: none;
+      transition: color 0.12s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── SPINNER ── */
+    .spin {
+      display: inline-block;
+      width: 13px; height: 13px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: rotate 0.65s linear infinite;
+      vertical-align: middle;
+      margin-right: 7px;
+    }
+
+    @keyframes rotate { to { transform: rotate(360deg); } }
+
+    /* ── HERO ILLUSTRATION ── */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .doc-illustration {
+      position: relative;
+      width: 220px;
+      height: 150px;
+    }
+
+    /* ── FADE IN ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-kicker  { animation: fadeUp 0.55s ease both; animation-delay: 0.05s; }
+    .hero h1      { animation: fadeUp 0.55s ease both; animation-delay: 0.15s; }
+    .hero-sub     { animation: fadeUp 0.55s ease both; animation-delay: 0.25s; }
+    .hero-trust   { animation: fadeUp 0.55s ease both; animation-delay: 0.35s; }
+    .hero-visual  { animation: fadeUp 0.7s ease both;  animation-delay: 0.1s; }
+
+    /* ── DIVIDER LINE ── */
+    .section-divider {
+      max-width: 860px;
+      margin: 0 auto 2rem;
+      padding: 0 2.5rem;
+    }
+
+    .section-divider hr {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 560px) {
+      nav { padding: 1rem 1.25rem; }
+      .hero { padding: 2rem 1.25rem 1.5rem; }
+      .section { padding: 0 1.25rem 1.5rem; }
+      .form-body { grid-template-columns: 1fr; }
+      .field.full { grid-column: 1; }
+      footer { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="logo-icon">
+      <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="1" width="11" height="14" rx="2" stroke="#fff" stroke-width="1.5"/>
+        <path d="M5 6h6M5 9h4M5 12h3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="logo-name">Lease<span>Letters</span></span>
+  </a>
+  <span class="nav-badge">Free · No account needed</span>
+</nav>
+
+<main>
+
+  <div class="hero-wrap">
+
+    <!-- Geometric background -->
+    <svg class="hero-geo" viewBox="0 0 900 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <!-- large soft circles -->
+      <circle cx="760" cy="-30" r="220" fill="none" stroke="#5DB87A" stroke-width="1" opacity="0.12"/>
+      <circle cx="760" cy="-30" r="160" fill="none" stroke="#5DB87A" stroke-width="0.75" opacity="0.09"/>
+      <circle cx="820" cy="280" r="180" fill="none" stroke="#5DB87A" stroke-width="1" opacity="0.08"/>
+      <circle cx="60"  cy="320" r="200" fill="none" stroke="#5DB87A" stroke-width="0.75" opacity="0.08"/>
+      <circle cx="100" cy="60"  r="90"  fill="none" stroke="#5DB87A" stroke-width="0.75" opacity="0.07"/>
+      <!-- subtle dot grid top-right -->
+      <g opacity="0.18" fill="#5DB87A">
+        <circle cx="620" cy="30"  r="1.5"/><circle cx="645" cy="30"  r="1.5"/><circle cx="670" cy="30"  r="1.5"/><circle cx="695" cy="30"  r="1.5"/><circle cx="720" cy="30"  r="1.5"/>
+        <circle cx="620" cy="55"  r="1.5"/><circle cx="645" cy="55"  r="1.5"/><circle cx="670" cy="55"  r="1.5"/><circle cx="695" cy="55"  r="1.5"/><circle cx="720" cy="55"  r="1.5"/>
+        <circle cx="620" cy="80"  r="1.5"/><circle cx="645" cy="80"  r="1.5"/><circle cx="670" cy="80"  r="1.5"/><circle cx="695" cy="80"  r="1.5"/><circle cx="720" cy="80"  r="1.5"/>
+        <circle cx="620" cy="105" r="1.5"/><circle cx="645" cy="105" r="1.5"/><circle cx="670" cy="105" r="1.5"/><circle cx="695" cy="105" r="1.5"/><circle cx="720" cy="105" r="1.5"/>
+        <circle cx="620" cy="130" r="1.5"/><circle cx="645" cy="130" r="1.5"/><circle cx="670" cy="130" r="1.5"/><circle cx="695" cy="130" r="1.5"/><circle cx="720" cy="130" r="1.5"/>
+      </g>
+      <!-- subtle dot grid bottom-left -->
+      <g opacity="0.12" fill="#5DB87A">
+        <circle cx="30"  cy="200" r="1.5"/><circle cx="55"  cy="200" r="1.5"/><circle cx="80"  cy="200" r="1.5"/><circle cx="105" cy="200" r="1.5"/>
+        <circle cx="30"  cy="225" r="1.5"/><circle cx="55"  cy="225" r="1.5"/><circle cx="80"  cy="225" r="1.5"/><circle cx="105" cy="225" r="1.5"/>
+        <circle cx="30"  cy="250" r="1.5"/><circle cx="55"  cy="250" r="1.5"/><circle cx="80"  cy="250" r="1.5"/><circle cx="105" cy="250" r="1.5"/>
+        <circle cx="30"  cy="275" r="1.5"/><circle cx="55"  cy="275" r="1.5"/><circle cx="80"  cy="275" r="1.5"/><circle cx="105" cy="275" r="1.5"/>
+      </g>
+      <!-- thin diagonal lines top-left -->
+      <g opacity="0.08" stroke="#5DB87A" stroke-width="1">
+        <line x1="-20" y1="80"  x2="120" y2="-20"/>
+        <line x1="-20" y1="110" x2="150" y2="-20"/>
+        <line x1="-20" y1="140" x2="180" y2="-20"/>
+        <line x1="-20" y1="170" x2="210" y2="-20"/>
+      </g>
+    </svg>
+
+    <div class="hero">
+
+      <!-- Document stack illustration -->
+      <div class="hero-visual">
+        <svg width="220" height="130" viewBox="0 0 220 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- shadow doc (back) -->
+          <rect x="42" y="18" width="90" height="112" rx="6" fill="#2A2724" opacity="0.9"/>
+          <!-- middle doc -->
+          <rect x="52" y="10" width="90" height="112" rx="6" fill="#302D29"/>
+          <line x1="68" y1="34" x2="124" y2="34" stroke="#4A4540" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="68" y1="46" x2="118" y2="46" stroke="#3E3A35" stroke-width="1" stroke-linecap="round"/>
+          <line x1="68" y1="56" x2="120" y2="56" stroke="#3E3A35" stroke-width="1" stroke-linecap="round"/>
+          <!-- front doc (main) -->
+          <rect x="64" y="2" width="92" height="116" rx="6" fill="#2D2A26" stroke="#3E3A35" stroke-width="1"/>
+          <!-- doc header bar -->
+          <rect x="64" y="2" width="92" height="22" rx="6" fill="#5DB87A"/>
+          <rect x="64" y="14" width="92" height="10" rx="0" fill="#5DB87A"/>
+          <!-- header text lines -->
+          <line x1="76" y1="10" x2="108" y2="10" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="76" y1="17" x2="96"  y2="17" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-linecap="round"/>
+          <!-- content lines -->
+          <line x1="76" y1="34" x2="144" y2="34" stroke="#4E4A44" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="76" y1="43" x2="138" y2="43" stroke="#444039" stroke-width="1" stroke-linecap="round"/>
+          <line x1="76" y1="51" x2="140" y2="51" stroke="#444039" stroke-width="1" stroke-linecap="round"/>
+          <line x1="76" y1="59" x2="132" y2="59" stroke="#444039" stroke-width="1" stroke-linecap="round"/>
+          <line x1="76" y1="72" x2="144" y2="72" stroke="#444039" stroke-width="1" stroke-linecap="round"/>
+          <line x1="76" y1="80" x2="136" y2="80" stroke="#444039" stroke-width="1" stroke-linecap="round"/>
+          <line x1="76" y1="88" x2="140" y2="88" stroke="#444039" stroke-width="1" stroke-linecap="round"/>
+          <!-- signature line -->
+          <line x1="76" y1="105" x2="120" y2="105" stroke="#4A4540" stroke-width="1" stroke-linecap="round"/>
+          <path d="M76 103 Q82 99 88 103 Q94 107 100 103" stroke="#5DB87A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <!-- small check badge -->
+          <circle cx="148" cy="100" r="10" fill="#5DB87A"/>
+          <path d="M143 100 L147 104 L154 97" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+
+      <span class="hero-kicker">AI-powered landlord documents</span>
+      <h1>Professional letters,<br><em>written in seconds.</em></h1>
+      <p class="hero-sub">Stop staring at a blank page. Generate state-aware landlord notices, letters, and forms instantly — just fill in the details.</p>
+      <div class="hero-trust">
+        <span class="trust-item"><span class="trust-dot"></span>All 50 states</span>
+        <span class="trust-item"><span class="trust-dot"></span>8 document types</span>
+        <span class="trust-item"><span class="trust-dot"></span>Copy & send in minutes</span>
+        <span class="trust-item"><span class="trust-dot"></span>No signup required</span>
+      </div>
+    </div>
+
+  </div>
+
+  </div><!-- end hero-wrap -->
+
+  <div class="section-divider"><hr></div>
+
+  <div class="section">
+
+    <p class="section-label">Choose a document</p>
+
+    <div class="doc-grid" id="docGrid"></div>
+
+    <div class="form-panel" id="formPanel">
+      <div class="form-header">
+        <div>
+          <div class="form-header-title" id="formTitle">Select a document above to begin</div>
+          <div class="form-header-sub" id="formSub">Each document is tailored to your state's requirements</div>
+        </div>
+      </div>
+      <div class="form-body" id="formBody">
+        <div class="full" style="grid-column:1/-1;padding:1.5rem 0;text-align:center;color:var(--ink3);font-size:13px;">
+          ← Pick a document type above to get started
+        </div>
+      </div>
+      <div class="gen-bar">
+        <button class="gen-btn" id="genBtn" onclick="generate()" disabled>Generate letter</button>
+        <p class="gen-note">State-aware language included automatically.</p>
+      </div>
+    </div>
+
+    <div class="output-panel" id="outputPanel" style="display:none">
+      <div class="output-header">
+        <span class="output-title" id="outputTitle">Your document</span>
+        <div class="output-actions">
+          <button class="out-btn" id="copyBtn" onclick="copyDoc()">Copy</button>
+          <button class="out-btn" onclick="printDoc()">Print</button>
+          <button class="out-btn" onclick="resetOutput()">New</button>
+        </div>
+      </div>
+      <div class="output-body" id="outputBody">
+        <span class="output-placeholder">Your document will appear here.</span>
+      </div>
+    </div>
+
+    <div class="upsell" id="upsellBar" style="display:none">
+      <div class="upsell-text">
+        <strong>Want all 18 state-specific templates?</strong>
+        <span>Ready-to-send packs for CA, TX, FL, NY, and 46 more states — tailored to local law. $12 one-time.</span>
+      </div>
+      <button class="upsell-cta">Get the full pack →</button>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p class="footer-note">LeaseLetters generates documents for informational purposes. This is not legal advice. Always consult a qualified attorney for complex landlord-tenant matters.</p>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">About</a>
+  </div>
+</footer>
+
+<script>
+  const DOCS = [
+    {
+      id: 'late-rent',
+      tag: 'Payment',
+      name: 'Late rent notice',
+      desc: 'First warning or final demand',
+      fields: [
+        { id: 'tenantName',   label: 'Tenant name',        placeholder: 'e.g. Sarah Johnson' },
+        { id: 'address',      label: 'Property address',   placeholder: 'e.g. 418 Birchwood Ave, Unit 3' },
+        { id: 'rentAmount',   label: 'Monthly rent',       placeholder: 'e.g. $1,850' },
+        { id: 'daysLate',     label: 'Days past due',      placeholder: 'e.g. 7' },
+        { id: 'lateFee',      label: 'Late fee (if any)',  placeholder: 'e.g. $75' },
+        { id: 'state',        label: 'State',              type: 'state' },
+      ]
+    },
+    {
+      id: 'rent-increase',
+      tag: 'Lease',
+      name: 'Rent increase',
+      desc: '30 or 60-day advance notice',
+      fields: [
+        { id: 'tenantName',    label: 'Tenant name',       placeholder: 'e.g. Marcus Webb' },
+        { id: 'address',       label: 'Property address',  placeholder: 'e.g. 22 Oak Street, Apt 1B' },
+        { id: 'currentRent',   label: 'Current rent',      placeholder: 'e.g. $1,600' },
+        { id: 'newRent',       label: 'New rent',          placeholder: 'e.g. $1,750' },
+        { id: 'effectiveDate', label: 'Effective date',    placeholder: 'e.g. July 1, 2026' },
+        { id: 'state',         label: 'State',             type: 'state' },
+      ]
+    },
+    {
+      id: 'move-out',
+      tag: 'Move-out',
+      name: 'Move-out letter',
+      desc: 'Checklist, inspection & deposit',
+      fields: [
+        { id: 'tenantName',   label: 'Tenant name',        placeholder: 'e.g. The Rivera Family' },
+        { id: 'address',      label: 'Property address',   placeholder: 'e.g. 9 Maple Drive' },
+        { id: 'moveOutDate',  label: 'Move-out date',      placeholder: 'e.g. May 31, 2026' },
+        { id: 'depositAmt',   label: 'Security deposit',   placeholder: 'e.g. $2,200' },
+        { id: 'state',        label: 'State',              type: 'state' },
+      ]
+    },
+    {
+      id: 'deposit-itemization',
+      tag: 'Deposit',
+      name: 'Deposit itemization',
+      desc: 'Deductions with breakdown',
+      fields: [
+        { id: 'tenantName',   label: 'Tenant name',        placeholder: 'e.g. Jordan Lee' },
+        { id: 'address',      label: 'Property address',   placeholder: 'e.g. 7 Elm Court' },
+        { id: 'depositAmt',   label: 'Deposit held',       placeholder: 'e.g. $1,800' },
+        { id: 'deductions',   label: 'Deductions (describe each)', placeholder: 'e.g. Carpet replacement $450, deep clean $200, broken blinds $80...', type: 'textarea' },
+        { id: 'state',        label: 'State',              type: 'state' },
+      ]
+    },
+    {
+      id: 'entry-notice',
+      tag: 'Access',
+      name: 'Notice to enter',
+      desc: '24/48-hour advance notice',
+      fields: [
+        { id: 'tenantName',  label: 'Tenant name',         placeholder: 'e.g. Chris & Dana Park' },
+        { id: 'address',     label: 'Property address',    placeholder: 'e.g. 305 Pine Ave, Unit 2' },
+        { id: 'entryDate',   label: 'Entry date',          placeholder: 'e.g. May 8, 2026' },
+        { id: 'entryTime',   label: 'Time window',         placeholder: 'e.g. 10:00 AM – 12:00 PM' },
+        { id: 'entryReason', label: 'Reason for entry',   placeholder: 'e.g. Annual HVAC inspection' },
+        { id: 'state',       label: 'State',               type: 'state' },
+      ]
+    },
+    {
+      id: 'lease-renewal',
+      tag: 'Lease',
+      name: 'Lease renewal offer',
+      desc: 'New term with updated terms',
+      fields: [
+        { id: 'tenantName',  label: 'Tenant name',         placeholder: 'e.g. Alex Thompson' },
+        { id: 'address',     label: 'Property address',    placeholder: 'e.g. 14 Walnut Lane' },
+        { id: 'currentEnd',  label: 'Current lease ends',  placeholder: 'e.g. June 30, 2026' },
+        { id: 'newTerm',     label: 'New lease term',      placeholder: 'e.g. 12 months, July 1 2026' },
+        { id: 'newRent',     label: 'New monthly rent',    placeholder: 'e.g. $1,950' },
+        { id: 'state',       label: 'State',               type: 'state' },
+      ]
+    },
+    {
+      id: 'lease-violation',
+      tag: 'Enforcement',
+      name: 'Lease violation',
+      desc: 'Cure or quit notice',
+      fields: [
+        { id: 'tenantName', label: 'Tenant name',          placeholder: 'e.g. Sam Williams' },
+        { id: 'address',    label: 'Property address',     placeholder: 'e.g. 88 Cedar Blvd, Unit 4' },
+        { id: 'violation',  label: 'Violation description', placeholder: 'e.g. Unauthorized pet, clause 12B...', type: 'textarea' },
+        { id: 'cureDays',   label: 'Days to cure',         placeholder: 'e.g. 3' },
+        { id: 'state',      label: 'State',                type: 'state' },
+      ]
+    },
+    {
+      id: 'screening-denial',
+      tag: 'Screening',
+      name: 'Application denial',
+      desc: 'Adverse action letter (FCRA)',
+      fields: [
+        { id: 'applicantName', label: 'Applicant name',    placeholder: 'e.g. Taylor Brooks' },
+        { id: 'address',       label: 'Property address',  placeholder: 'e.g. 2 Harbor View Dr' },
+        { id: 'denialReason',  label: 'Reason for denial', placeholder: 'e.g. Credit score below minimum threshold, insufficient income...', type: 'textarea' },
+        { id: 'state',         label: 'State',             type: 'state' },
+      ]
+    },
+  ];
+
+  const STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+
+  let activeDoc = null;
+  let selectedState = '';
+
+  /* Build doc grid */
+  const grid = document.getElementById('docGrid');
+  DOCS.forEach(doc => {
+    const card = document.createElement('div');
+    card.className = 'doc-card';
+    card.dataset.id = doc.id;
+    card.innerHTML = `
+      <div class="doc-card-tag">${doc.tag}</div>
+      <div class="doc-card-name">${doc.name}</div>
+      <div class="doc-card-desc">${doc.desc}</div>
+    `;
+    card.addEventListener('click', () => selectDoc(doc));
+    grid.appendChild(card);
+  });
+
+  function selectDoc(doc) {
+    activeDoc = doc;
+    selectedState = '';
+
+    document.querySelectorAll('.doc-card').forEach(c =>
+      c.classList.toggle('active', c.dataset.id === doc.id)
+    );
+
+    document.getElementById('formTitle').textContent = doc.name;
+    document.getElementById('formSub').textContent = 'Fill in the fields below, then click generate';
+    document.getElementById('genBtn').disabled = false;
+
+    const body = document.getElementById('formBody');
+    body.innerHTML = '';
+
+    doc.fields.forEach(f => {
+      const wrap = document.createElement('div');
+      wrap.className = 'field' + (f.type === 'textarea' || f.type === 'state' ? ' full' : '');
+
+      if (f.type === 'state') {
+        wrap.innerHTML = `<label>${f.label}</label><div class="state-grid" id="stateGrid_${doc.id}"></div>`;
+        body.appendChild(wrap);
+        const sg = document.getElementById('stateGrid_' + doc.id);
+        STATES.forEach(s => {
+          const pill = document.createElement('button');
+          pill.className = 'state-pill';
+          pill.textContent = s;
+          pill.type = 'button';
+          pill.addEventListener('click', () => {
+            document.querySelectorAll('.state-pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            selectedState = s;
+          });
+          sg.appendChild(pill);
+        });
+      } else if (f.type === 'textarea') {
+        wrap.innerHTML = `<label>${f.label}</label><textarea id="f_${f.id}" placeholder="${f.placeholder}"></textarea>`;
+        body.appendChild(wrap);
+      } else {
+        wrap.innerHTML = `<label>${f.label}</label><input type="text" id="f_${f.id}" placeholder="${f.placeholder}" />`;
+        body.appendChild(wrap);
+      }
+    });
+  }
+
+  function getFields() {
+    const out = {};
+    if (!activeDoc) return out;
+    activeDoc.fields.forEach(f => {
+      if (f.type === 'state') { out['State'] = selectedState || 'your state'; return; }
+      const el = document.getElementById('f_' + f.id);
+      if (el) out[f.label] = el.value.trim() || '(not provided)';
+    });
+    return out;
+  }
+
+  async function generate() {
+    if (!activeDoc) return;
+
+    const btn = document.getElementById('genBtn');
+    const outputPanel = document.getElementById('outputPanel');
+    const outputBody = document.getElementById('outputBody');
+    const upsell = document.getElementById('upsellBar');
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin"></span>Writing your letter...';
+    outputPanel.style.display = 'block';
+    document.getElementById('outputTitle').textContent = activeDoc.name;
+    outputBody.innerHTML = '<span class="output-placeholder">Generating your document...</span>';
+    upsell.style.display = 'none';
+    document.getElementById('copyBtn').textContent = 'Copy';
+
+    outputPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    try {
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          docType: activeDoc.name,
+          fields: getFields(),
+          state: selectedState || 'your state'
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        outputBody.innerHTML = `<span style="color:#c0392b;font-style:italic">Error: ${data.error || 'Something went wrong. Please try again.'}</span>`;
+      } else {
+        outputBody.textContent = data.result;
+        upsell.style.display = 'flex';
+      }
+
+    } catch (err) {
+      outputBody.innerHTML = '<span style="color:#c0392b;font-style:italic">Network error — please try again.</span>';
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = 'Generate letter';
+  }
+
+  function copyDoc() {
+    const text = document.getElementById('outputBody').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2200);
+    });
+  }
+
+  function printDoc() {
+    const content = document.getElementById('outputBody').textContent;
+    const win = window.open('', '_blank');
+    win.document.write(`<html><head><title>LeaseLetters Document</title><style>body{font-family:Georgia,serif;max-width:680px;margin:60px auto;font-size:15px;line-height:1.8;color:#1a1a1a;white-space:pre-wrap}</style></head><body>${content}</body></html>`);
+    win.document.close();
+    win.print();
+  }
+
+  function resetOutput() {
+    document.getElementById('outputPanel').style.display = 'none';
+    document.getElementById('upsellBar').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
