@@ -2,6 +2,14 @@
   "rewrites": [
     { "source": "/api/generate", "destination": "/api/generate.js" },
     { "source": "/pages/late-rent-notice-california", "destination": "/pages/late-rent-notice-california.html" },
+    { "source": "/pages/late-rent-notice-texas", "destination": "/pages/late-rent-notice-texas.html" },
+    { "source": "/pages/late-rent-notice-florida", "destination": "/pages/late-rent-notice-florida.html" },
+    { "source": "/pages/late-rent-notice-new-york", "destination": "/pages/late-rent-notice-new-york.html" },
+    { "source": "/pages/late-rent-notice-nevada", "destination": "/pages/late-rent-notice-nevada.html" },
+    { "source": "/pages/late-rent-notice-arizona", "destination": "/pages/late-rent-notice-arizona.html" },
+    { "source": "/pages/late-rent-notice-washington", "destination": "/pages/late-rent-notice-washington.html" },
+    { "source": "/pages/late-rent-notice-colorado", "destination": "/pages/late-rent-notice-colorado.html" },
+    { "source": "/pages/late-rent-notice-georgia", "destination": "/pages/late-rent-notice-georgia.html" },
     { "source": "/pages/rent-increase-letter-template", "destination": "/pages/rent-increase-letter-template.html" },
     { "source": "/pages/move-out-letter-to-tenant", "destination": "/pages/move-out-letter-to-tenant.html" },
     { "source": "/pages/lease-violation-notice-template", "destination": "/pages/lease-violation-notice-template.html" }
