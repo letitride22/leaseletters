@@ -452,6 +452,53 @@
       font-style: italic;
     }
 
+    /* ── STATIC UPSELL STRIP ── */
+    .static-upsell {
+      background: var(--bg2);
+      border: 1px solid rgba(93,184,122,0.25);
+      border-radius: var(--radiuslg);
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .static-upsell-left {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .static-upsell-badge {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accentbg);
+      border: 1px solid rgba(93,184,122,0.25);
+      padding: 2px 8px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .static-upsell strong {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+    }
+
+    .static-upsell span {
+      font-size: 12px;
+      color: var(--ink3);
+      font-weight: 300;
+    }
+
     /* ── UPSELL ── */
     .upsell {
       background: var(--bg2);
@@ -698,6 +745,18 @@
   </div><!-- end hero-wrap -->
 
   <div class="section-divider"><hr></div>
+
+  <!-- ── PERMANENT UPSELL STRIP ── -->
+  <div class="section" style="padding-bottom:0">
+    <div class="static-upsell">
+      <div class="static-upsell-left">
+        <span class="static-upsell-badge">Template Pack</span>
+        <strong>18 ready-to-send landlord templates — $12</strong>
+        <span>Late rent, move-out, violations, lease addendums & more. Download instantly.</span>
+      </div>
+      <a class="upsell-cta" href="https://tightpress.gumroad.com/l/pkeqof" target="_blank" rel="noopener">Get the Pack →</a>
+    </div>
+  </div>
 
   <div class="section">
 
